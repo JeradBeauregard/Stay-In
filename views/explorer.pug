@@ -1,0 +1,31 @@
+doctype html
+html
+  head
+    title Explorer
+  body
+    h1 Explorer Page
+
+    form(action="/explorer", method="get")
+      input(type="text", name="query", placeholder="Search games...", value=searchTerm)
+      button(type="submit") Search
+
+    //- prevents results from showing until after initial search 
+    if searchTerm
+      //- only renders search if there are games returned to the view (wont render if array is empty)
+      if games.length
+        h2 Results for "#{searchTerm}" 
+        ul
+          //- store values in variables for easy readability, sample json of what a game looks like in readme.
+          each game in games
+            - const gameId = game && game.$ && game.$.id
+            - const gameTitle = game && game.name && game.name.$ && game.name.$.value
+            - const gameYear = game && game.yearpublished && game.yearpublished.$ && game.yearpublished.$.value || ''
+            li
+              //- output or game link to the page using variables
+              a(href='/details/' + gameId)= gameTitle + ' (' + gameYear + ')'
+      else
+        //- on the off chance there are no games
+        p No results found for "#{searchTerm}" 
+    else
+      //- shows this before search is made
+      p Type a board game name above to search.

@@ -1,0 +1,38 @@
+doctype html
+html
+  head
+    - const titleText = (game.name && game.name.$ && game.name.$.value) ? game.name.$.value : 'Game Details'
+    title= titleText
+  body
+    h1= titleText
+
+    if game.description
+      h3 Description
+      p!= game.description 
+
+    h3 Players
+    - const minPlayers = game.minplayers && game.minplayers.$ && game.minplayers.$.value
+    - const maxPlayers = game.maxplayers && game.maxplayers.$ && game.maxplayers.$.value
+    p #{minPlayers || '?'} – #{maxPlayers || '?'}
+
+    h3 Playtime
+    - const playtime = game.playingtime && game.playingtime.$ && game.playingtime.$.value
+    p #{playtime || '?'} minutes
+
+    if game.statistics && game.statistics.ratings
+      h3 Rating
+      - const rating = game.statistics.ratings.average && game.statistics.ratings.average.$ && game.statistics.ratings.average.$.value
+      p= rating || 'N/A'
+
+      h3 Complexity
+      - const complexity = game.statistics.ratings.complexity && game.statistics.ratings.complexity.$ && game.statistics.ratings.complexity.$.value
+      p= complexity || 'N/A'
+
+    if game.link
+      - const links = Array.isArray(game.link) ? game.link : [game.link]
+      - const categories = links.filter(link => link.$.type === 'boardgamecategory')
+      if categories.length
+        h3 Categories
+        ul
+          each category in categories
+            li= category.$.value
