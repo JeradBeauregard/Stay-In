@@ -1,0 +1,45 @@
+extends layout
+
+block content
+  h1 Welcome to Stay In 🎲
+
+  p Discover the perfect game for your next night in! Browse by theme:
+
+  //- get a random game
+  p
+    a(href=`/details/${randomId}`) 🎲 Surprise Me with a Random Game!
+
+    //- strategy games
+  if strategy.length 
+    h2 Strategy Games
+    ul
+      each game in strategy
+        - const id = game?.$?.id
+        - const title = game?.name?.$?.value
+        li: a(href='/details/' + id)= title
+
+    //- fantasy games
+  if fantasy.length 
+    h2 Fantasy Games
+    ul
+      each game in fantasy
+        - const id = game?.$?.id
+        - const title = game?.name?.$?.value
+        li: a(href='/details/' + id)= title
+    //- card games
+  if card.length 
+    h2 Card Games
+    ul
+      each game in card
+        - const id = game?.$?.id
+        - const title = game?.name?.$?.value
+        li: a(href='/details/' + id)= title
+
+    //- party games
+  if party.length
+    h2 Party Games
+    ul
+      each game in party
+        - const id = game?.$?.id
+        - const title = game?.name?.$?.value
+        li: a(href='/details/' + id)= title

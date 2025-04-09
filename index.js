@@ -22,10 +22,10 @@ app.set("view engine", "pug"); // Sets Pug as the template engine.
 const Routes = require('./Controllers/PageController');
 app.use('/',Routes);
 
+const apiRoutes = require('./Controllers/ApiController');
+app.use('/api',apiRoutes);
 
-app.get("/", (req, res) => { // get request to our express application
-    res.render("index", { title: "Home" });
-    });
+
     
     //req: The request object, containing data from the client (like form inputs, headers, etc.).
     //res: The response object, used to send a response back to the client.

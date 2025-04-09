@@ -1,0 +1,148 @@
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f9f9f9;
+    color: #333;
+    
+  }
+  
+  a {
+    text-decoration: none;
+  }
+  
+  a:hover {
+    text-decoration: underline;
+  }
+  
+  ul {
+    list-style-type: none;
+    padding-left: 0;
+  }
+  
+  img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+  }
+  
+
+  header,
+  footer {
+    background-color: #ffffff;
+    padding: 1rem 2rem;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  }
+  
+  header h1 {
+    margin: 0;
+    font-size: 1.8rem;
+  }
+  
+  nav ul {
+    display: flex;
+    gap: 1.5rem;
+    margin-top: 0.5rem;
+  }
+  
+  main {
+    padding: 2rem;
+    max-width: 900px;
+    margin: 0 auto;
+  }
+  
+  
+  h1,
+  h2,
+  h3 {
+    color: #222;
+    margin-bottom: 0.5rem;
+  }
+  
+  p {
+    margin-bottom: 1rem;
+  }
+  
+
+  form {
+    margin-bottom: 2rem;
+  }
+  
+  input{
+    padding: 0.5rem;
+    font-size: 1rem;
+    width: 250px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin-right: 0.5rem;
+  }
+  
+  button {
+    padding: 0.5rem 1rem;
+    background-color: #3366cc;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  button:hover {
+    background-color: #254d99;
+  }
+  
+  li {
+    margin-bottom: 0.75rem;
+  }
+  
+  footer {
+    text-align: center;
+    font-size: 0.9rem;
+    margin-top: 4rem;
+    color: #666;
+  }
+  
+  /* API Content Sections */
+  .apiSection {
+    margin-top: 2rem;
+    display: flex;
+  }
+  
+  .apiBlock {
+    margin-bottom: 2.5rem;
+    width: 200px;
+  }
+  
+  .recipe-list,
+  .music-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+    padding-left: 0;
+    list-style: none;
+  }
+  
+  .recipe-list li,
+  .music-list li {
+    flex: 0 1 200px;
+    text-align: center;
+    background: #fff;
+    border-radius: 8px;
+    padding: 0.5rem;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
+  }
+
+  #infoApiContainer{
+    display: flex;
+    gap: 100px;
+    
+  }
+  
+  .infoSection{
+    width: 200px;
+  }
+
+  #ApiContainer{
+    width: 800px;
+    display: flex;
+    flex-direction: column;
+  }

@@ -1,38 +1,70 @@
-doctype html
-html
-  head
-    - const titleText = (game.name && game.name.$ && game.name.$.value) ? game.name.$.value : 'Game Details'
-    title= titleText
-  body
-    h1= titleText
+extends layout
 
-    if game.description
-      h3 Description
-      p!= game.description 
+block content
+  - const titleText = (game.name && game.name.$ && game.name.$.value) ? game.name.$.value : 'Game Details'
 
-    h3 Players
-    - const minPlayers = game.minplayers && game.minplayers.$ && game.minplayers.$.value
-    - const maxPlayers = game.maxplayers && game.maxplayers.$ && game.maxplayers.$.value
-    p #{minPlayers || '?'} – #{maxPlayers || '?'}
+  h1= titleText
 
-    h3 Playtime
-    - const playtime = game.playingtime && game.playingtime.$ && game.playingtime.$.value
-    p #{playtime || '?'} minutes
+  if game.description
+    h3 Description
+    p!= game.description
+  #infoApiContainer
+    .infoSection
+      h3 Players
+      - const minPlayers = game.minplayers && game.minplayers.$ && game.minplayers.$.value
+      - const maxPlayers = game.maxplayers && game.maxplayers.$ && game.maxplayers.$.value
+      p #{minPlayers || '?'} – #{maxPlayers || '?'}
 
-    if game.statistics && game.statistics.ratings
-      h3 Rating
-      - const rating = game.statistics.ratings.average && game.statistics.ratings.average.$ && game.statistics.ratings.average.$.value
-      p= rating || 'N/A'
+      h3 Playtime
+      - const playtime = game.playingtime && game.playingtime.$ && game.playingtime.$.value
+      p #{playtime || '?'} minutes
 
-      h3 Complexity
-      - const complexity = game.statistics.ratings.complexity && game.statistics.ratings.complexity.$ && game.statistics.ratings.complexity.$.value
-      p= complexity || 'N/A'
+      - const hasRatings = game.statistics && game.statistics.ratings
+      if hasRatings
+        h3 Rating
+        - const rating = game.statistics.ratings.average && game.statistics.ratings.average.$ && game.statistics.ratings.average.$.value
+        p= rating || 'N/A'
 
-    if game.link
-      - const links = Array.isArray(game.link) ? game.link : [game.link]
-      - const categories = links.filter(link => link.$.type === 'boardgamecategory')
-      if categories.length
-        h3 Categories
-        ul
-          each category in categories
-            li= category.$.value
+        h3 Complexity
+        - const complexity = game.statistics.ratings.complexity && game.statistics.ratings.complexity.$ && game.statistics.ratings.complexity.$.value
+        p= complexity || 'N/A'
+
+      if game.link
+        - const links = Array.isArray(game.link) ? game.link : [game.link]
+        - const categories = links.filter(link => link.$.type === 'boardgamecategory')
+        if categories.length
+          h3 Categories
+          ul
+            each category in categories
+              li= category.$.value
+    #ApiContainer
+      if recipes && recipes.length
+        h3 Suggested Recipes
+        .apiSection
+          each recipe in recipes
+            .apiBlock
+              a(href=recipe.strSource || '#', target='_blank')
+                img(src=recipe.strMealThumb, alt=recipe.strMeal, width="150")
+                br
+                | #{recipe.strMeal}
+      else if recipes
+        .apiBlock
+          h3 Suggested Recipes
+          p No recipes found for this game.
+
+      
+      if playlists && playlists.length
+        h3 Suggested Music
+        .apiSection
+          each playlist in playlists
+            if playlist && playlist.external_urls && playlist.external_urls.spotify
+              .apiBlock
+                a(href=playlist.external_urls.spotify, target='_blank')
+                  if playlist.images && playlist.images.length
+                    img(src=playlist.images[0].url, width='150', alt=playlist.name)
+                  br
+                  | #{playlist.name}
+      else if playlists
+        .apiBlock
+          h3 Suggested Music
+          p No music found for this game.

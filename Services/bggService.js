@@ -59,10 +59,44 @@ async function searchGameByName(query) {
   return limitedResults;
 }
 
+// getgames for main page, query will be genre
+
+async function searchGameGenres(query){
+  const url = `https://boardgamegeek.com/xmlapi2/search?query=${encodeURIComponent(query)}&type=boardgame`;
+
+  const res = await axios.get(url);
+  const parsed = await parser.parseStringPromise(res.data);
+
+  let games = parsed.items.item;
+  if (!games) return []; // return empty array if games is empty
+
+ 
+  if (!Array.isArray(games)) games = [games]; // change to array if object is returned
+  const limitedResults = games.slice(0, 20); 
+
+  return limitedResults;
+}
+
+// get random game
+
+async function getRandomGame(){
+  const url = 'https://boardgamegeek.com/xmlapi2/hot?type=boardgame'; // gets a random hot game
+  const res = await axios.get(url);
+  const parsed = await parser.parseStringPromise(res.data);
+
+  let games = parsed.items.item;
+  if (!Array.isArray(games)) games = [games];
+
+  const randomGame = games[Math.floor(Math.random() * games.length)];
+  return randomGame.$.id; // Return just the game if for link to details page
+}
+
 
 module.exports = {
   getGameById,
-  searchGameByName
+  searchGameByName,
+  searchGameGenres,
+  getRandomGame
 };
 
 
